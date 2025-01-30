@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  <meta name="description"
+        content="Shape from Semantics: 3D Shape Generation from Multi-View Semantics">
+  <meta name="keywords" content="Inverse modeling, Generative priors">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Shape from Semantics</title>
+
+  <!-- Bootstrap -->
+  <link href="static/css/bootstrap-4.4.1.css" rel="stylesheet">
+  
+  <!-- Global site tag (gtag.js) - Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-PYVRSFMDRL"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+
+    function gtag() {
+      dataLayer.push(arguments);
+    }
+
+    gtag('js', new Date());
+
+    gtag('config', 'G-PYVRSFMDRL');
+  </script>
+
+  <script type="module" src="https://unpkg.com/@google/model-viewer/dist/model-viewer.min.js"></script>
+
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Montserrat:wght@400;600;700&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Crimson+Text:wght@400;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="./static/css/bulma.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-carousel.min.css">
+  <link rel="stylesheet" href="./static/css/bulma-slider.min.css">
+  <link rel="stylesheet" href="./static/css/fontawesome.all.min.css">
+  <link rel="stylesheet"
+        href="https://cdn.jsdelivr.net/gh/jpswalsh/academicons@1/css/academicons.min.css">
+  <link rel="stylesheet" href="./static/css/index.css">
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+  <script defer src="./static/js/fontawesome.all.min.js"></script>
+  <script src="./static/js/bulma-carousel.min.js"></script>
+  <script src="./static/js/bulma-slider.min.js"></script>
+  <script src="./static/js/index.js"></script>
+</head>
+<body>
+
+
+  <section class="hero">
+    <div class="hero-body">
+      <div class="container is-max-desktop">
+        <div class="columns is-centered">
+          <div class="column has-text-centered">
+            <style>
+              @import url('https://fonts.googleapis.com/css2?family=Merriweather+Sans:wght@700&family=Montserrat:wght@800&family=Lora:wght@600&display=swap');
+              
+              .publication-title {
+                  text-align: center;
+                  position: relative;
+                  padding-bottom: 15px;
+                  margin: 1.5rem 0;
+              }
+              
+              .short-title {
+                  font-family: 'Montserrat', sans-serif;
+                  font-size: 3rem;
+                  font-weight: 800;  /* 加粗 */
+                  letter-spacing: -1px;
+                  margin-bottom: 8px;
+                  display: block;
+                  background: linear-gradient(135deg, #D72638 0%, #FF5733 100%);
+                  -webkit-background-clip: text;
+                  -webkit-text-fill-color: transparent;
+                  text-shadow: 3px 3px 5px rgba(0, 0, 0, 0.2); /* 适当阴影 */
+              }
+              
+              .long-title {
+                  font-family: 'Merriweather Sans', sans-serif;
+                  font-size: 2rem;
+                  font-weight: 700; /* 字体更“胖” */
+                  color: #333;
+                  display: block;
+                  margin-top: -5px;
+                  position: relative;
+                  padding-top: 10px;
+                  text-shadow: 2px 2px 3px rgba(0, 0, 0, 0.1); /* 轻微阴影 */
+              }
+  
+              /* 作者部分 */
+              .publication-authors {
+                  font-family: 'Lora', serif;
+                  font-size: 1.2rem;
+                  font-weight: 600; /* 加粗 */
+                  color: #555;
+                  margin-top: 10px;
+              }
+  
+              .author-block {
+                  display: inline-block;
+                  margin-bottom: 5px;
+              }
+  
+              /* 超链接颜色 */
+              .author-block a {
+                  color: #D72638;
+                  text-decoration: none;
+                  font-weight: 700;
+              }
+  
+              .author-block a:hover {
+                  text-decoration: underline;
+              }
+  
+            </style>
+              
+            <h2 class="title is-2 publication-title">
+                <span class="short-title">Shape from Semantics</span>
+                <span class="long-title">3D Shape Generation from Multi-View Semantics</span>
+            </h2>
+  
+            <div class="is-size-5 publication-authors">
+              <span class="author-block">Liangchen Li<sup>1</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+              <span class="author-block">Caoliwen Wang<sup>1</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+              <span class="author-block">Yuqi Zhou<sup>1</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+              <span class="author-block"><a href="http://www.bdeng.me/">Bailin Deng</a><sup>2</sup></span>&nbsp;&nbsp;&nbsp;&nbsp;
+              <span class="author-block">
+                <a href="http://staff.ustc.edu.cn/~juyong/">Juyong Zhang</a><sup>1</sup>
+              </span>
+            </div>
+  
+            <div class="is-size-5 publication-authors">
+              <span class="author-block"><sup>1</sup>University of Science and Technology of China</span>
+              <span class="author-block"><sup>2</sup>Cardiff University</span>
+            </div>
+  
+  
+  
+
+
+          <div class="column has-text-centered">
+            <div class="publication-links">
+              <!-- PDF Link. -->
+              <!--
+              <span class="link-block">
+                <a href=""
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fas fa-file-pdf"></i>
+                  </span>
+                  <span>Paper</span>
+                </a>
+              </span>
+              -->
+              <!-- <span class="link-block">
+                <a href="https://arxiv.org/pdf/2206.15258.pdf"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="ai ai-arxiv fa-lg"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+              </span> -->
+
+              <span class="link-block">
+                <a href="javascript:void(0);" class="external-link button is-normal is-rounded is-dark" 
+                   onclick="window.location.href=window.location.href;">
+                  <span class="icon">
+                      <i class="ai ai-arxiv fa-lg"></i>
+                  </span>
+                  <span>arXiv</span>
+                </a>
+            </span>
+
+            
+              <!-- Video Link. -->
+              <!--
+              <span class="link-block">
+                <a href="https://www.youtube.com/watch?v=MrKrnHhk8IA"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="fab fa-youtube"></i>
+                  </span>
+                  <span>Video</span>
+                </a>
+              </span>
+              -->
+              <!-- Code Link. -->
+              <span class="link-block">
+                <a href="javascript:void(0);" class="external-link button is-normal is-rounded is-dark" 
+                   onclick="window.location.href=window.location.href;">
+                  <span class="icon">
+                      <i class="fab fa-github fa-lg"></i>
+                  </span>
+                  <span>Code</span>
+                  </a>
+              </span>
+              <!-- OpenReview Link. -->
+              <!-- <span class="link-block">
+                <a href="https://openreview.net/forum?id=8RKJj1YDBJT"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                    <i class="fas fa-users"></i>
+                  </span>
+                  <span>OpenReview</span>
+                  </a>
+              </span>
+
+       
+              <!--
+              <span class="link-block">
+                <a href="https://github.com/google/nerfies/releases/tag/0.1"
+                   class="external-link button is-normal is-rounded is-dark">
+                  <span class="icon">
+                      <i class="far fa-images"></i>
+                  </span>
+                  <span>Data</span>
+                  </a>
+              </span>
+              -->
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <!-- 文字说明移动到图片上方 -->
+<h2 class="subtitle has-text-centered" style="margin-bottom: 24px; font-weight: bold; color: black;">
+  We propose and address <span style="color: #e67e22; font-weight: bold;">Shape from Semantics,</span> <span style="color: #27ae60; font-weight: bold;">a novel generative problem.</span> 
+  
+   <!--<br>
+  <span style="color: #e67e22; font-weight: bold;"> (🎯High-quality rendering)</span> 
+  and 
+  <span class="highlight-simulation" style="color: #27ae60; font-weight: bold;">Structured Geometry</span> 
+  <span style="color: #27ae60; font-weight: bold;"> (⚙️Physics-based simulation)</span>.<br>
+</h2>-->
+
+
+      <!-- 图片元素 -->
+      <img src="https://raw.githubusercontent.com/ShapefromSemantics/ShapefromSemantics.github.io/main/assets/imgs/teaser4.png" 
+           class="center"
+           style="max-width: 100%; margin: 0 auto; display: block;">
+
+      <!-- 原技术路径说明 -->
+      <div class="has-text-centered" style="margin-top: 25px; font-size: 1.1em;">
+        Given a set of semantics and corresponding views as input, our method can produce high-quality shapes that exhibit geometry and appearance consistent with the semantics from each view and are feasible for real-world fabrication.
+      </div>
+    </div>
+  </div>
+</section>
+
+<style>
+/* 添加自定义高亮样式 */
+.highlight-rendering {
+  color: #e67e22;
+  font-weight: 600;
+  border-bottom: 2px solid #e67e22;
+  padding-bottom: 2px;
+}
+
+.highlight-simulation {
+  color: #27ae60;
+  font-weight: 600;
+  border-bottom: 2px solid #27ae60;
+  padding-bottom: 2px;
+}
+</style>
+<!--
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3">Reconstructions</h2>
+
+        <div class="embed-responsive embed-responsive-16by9">
+
+          <iframe style="clip-path: inset(1px 1px)" src="https://sketchfab.com/playlists/embed?collection=abee3cc1a7a7436c804f2bd3aadc2acd" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen" mozallowfullscreen="true" webkitallowfullscreen="true" width="100%" height="100%" frameborder="0"></iframe>
+        </div>
+        
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+-->
+
+<section class="section">
+  <div class="container is-max-desktop">
+    <!-- Abstract. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3" style="margin-top: -30px">Abstract</h2>
+        <div class="content has-text-justified">
+          <p>
+            We propose "Shape from Semantics", which is able to create 3D models whose geometry and appearance match given semantics when observed from different views. Traditional "Shape from X" tasks usually use visual input (e.g., RGB images or depth maps) to reconstruct geometry, imposing strict constraints that limit creative explorations. As applications, works like Shadow Art and Wire Art often struggle to grasp the embedded semantics of their design through direct observation and rely heavily on specific setups for proper display. To address these limitations, our framework uses semantics as input, greatly expanding the design space to create objects that integrate multiple semantic elements and are easily discernible by observers. Considering that this task requires a rich imagination, we adopt various generative models and structure-to-detail pipelines. Specifically, we adopt multi-semantics Score Distillation Sampling (SDS) to distill 3D geometry and appearance from 2D diffusion models, ensuring that the initial shape is consistent with the semantic input. We then use image restoration and video generation models to add more details as supervision. Finally, we introduce neural signed distance field (SDF) representation to achieve detailed shape reconstruction. Our framework generates meshes with complex details, well-structured geometry, coherent textures, and smooth transitions, resulting in visually appealing and eye-catching designs.
+          </p>
+        </div>
+      </div>
+    </div>
+    <!--/ Abstract. -->
+    <!-- Paper video. -->
+    <!--
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-four-fifths">
+        <h2 class="title is-3">Video</h2>
+        <div class="publication-video">
+          <iframe src="https://www.youtube.com/embed/MrKrnHhk8IA?rel=0&amp;showinfo=0"
+                  frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+        </div>
+      </div>
+    </div>
+    -->
+    <!--/ Paper video. -->
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <!-- Method. -->
+    <div class="columns is-centered has-text-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3" style="margin-top: -20px">Motivation</h2>
+
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 loop
+                 width="100%">
+            <source src="https://raw.githubusercontent.com/StructuredField/StructuredField.github.io/refs/heads/main/assets/videos/motivation.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="content has-text-justified">
+          Point-based representations (e.g., 3D Gaussian Splatting, 2D Gaussian Splatting) are fundamentally <b>unstructured</b>, hindering physics-sensitive tasks such as simulation and deformation. Our  <b>structured</b>  representation enables direct compatibility with modern graphics pipelines.          <p style="margin-top: 30px">
+        </p>
+        </div>
+
+      </div>
+    </div>
+    <!--/ Animation. -->
+
+  </div>
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <!-- Results. -->
+    <div class="columns is-centered">
+      <div class="column is-full-width">
+        <h2 class="title is-3 has-text-centered" style="margin-top: -30px">Methods</h2>
+
+        <!-- Pipeline Section -->
+          <!-- 新增居中容器 --> <!-- 添加火箭emoji -->
+          <div class="content has-text-centered">
+            <img src="https://raw.githubusercontent.com/StructuredField/StructuredField.github.io/main/assets/imgs/pipeline.png" 
+                 class="center"
+                 style="max-width: 100%; margin: 0 auto;">  <!-- 添加图片尺寸控制 -->
+            <div class="content has-text-justified"> <!-- 添加描述段落 -->
+              Given multi-view images as input, we reconstruct the 3D scene using a structured tetrahedral mesh representation. We use an orientation-preserving homeomorphism to maintain the inversion-free and self-intersection-free structured geometry of the tetrahedral mesh. Additionally, parameters of tetrahedra are reparameterized into the corresponding 3D Gaussians parameters, enabling differentiable rendering.  Based on our structured mesh representation, we can further apply the model to physical simulations, deformation, and other applications.
+            </p>
+          </div>
+        </div>
+
+  
+        <h3 class="title is-4">Representation of StructuredField</h3>
+        <div class="content has-text-justified">
+          <p>We reparametrize the parameters of 3D Gaussians with the parameters of  tetrahedra to</p>
+          <ul>
+            <li>Enable differentiable rendering of a tetrahedral mesh</li>
+            <li>Make Gaussians better follow the deformation of the tetrahedral mesh</li>
+          </ul>
+
+
+          <div class="content has-text-centered">
+            <video id="replay-video"
+                   autoplay
+                   controls
+                   muted
+                   preload
+                   playsinline
+                   loop
+                   width="100%">
+              <source src="https://raw.githubusercontent.com/StructuredField/StructuredField.github.io/refs/heads/main/assets/videos/reparametrize.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+        </div>
+        
+
+          
+        <h3 class="title is-4">High-quality Structured Geometry</h3>
+        <head>
+          <!-- 引入Google Fonts中的Dancing Script -->
+          <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+        </head>
+        
+        <div class="content has-text-justified">
+          <p>We analyze the causes of low-quality geometric structures in mesh optimization, and we use an orientation-preserving homeomorphism implemented by a novel invertible neural network <span class="math-symbol cursive">H</span> to improve the quality of geometric structures during optimization.</p>
+          <ul>
+            <li><b>Self-intersection:</b> Using the homeomorphism to ensure no intersections.</li>
+            <li><b>Element inversion:</b> Using orientation-preserving properties to reduce inverted elements.</li>
+          </ul>
+          <p>During optimization, we fix the initial tetrahedral mesh vertices <span class="math-symbol cursive">V</span> and topology <span class="math-symbol cursive">T</span>, and use the vertices mapped by <span class="math-symbol cursive">H</span> as the actual vertices of the tetrahedra.</p>
+        </div>
+        
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 loop
+                 width="100%">
+            <source src="https://raw.githubusercontent.com/StructuredField/StructuredField.github.io/refs/heads/main/assets/videos/inn.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        <style>
+          .math-symbol.cursive {
+            font-family: 'Dancing Script', cursive;
+          }
+        </style>
+        
+</section>
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <!-- Comparisons. -->
+    <div class="columns is-centered ">
+      <div class="column is-full-width">
+        <h2 class="title is-3 has-text-centered" style="margin-top: -30px">High-quality Rendering</h2>
+
+        <div class="content has-text-justified">
+          <p>
+            We compare StructuredField with recent SOTA novel view synthesis methods.
+          </p>
+        </div>
+        
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 loop
+                 width="100%">
+            <source src="https://raw.githubusercontent.com/StructuredField/StructuredField.github.io/refs/heads/main/assets/videos/comparison.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+       
+
+
+  </div>
+</section>
+
+
+
+<section class="section">
+  <div class="container is-max-desktop">
+
+    <!-- Ablation Studies. -->
+    <div class="columns is-centered ">
+      <div class="column is-full-width">
+        <h2 class="title is-3 has-text-centered" style="margin-top: -30px">Applications</h2>
+
+        <h3 class="title is-4">Physical Simulation</h3>
+       
+        
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 loop
+                 width="100%">
+            <source src="https://raw.githubusercontent.com/StructuredField/StructuredField.github.io/refs/heads/main/assets/videos/physcial.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+        <div class="content has-text-justified">
+          <p>
+            We are able to simulate the object's behavior under different parameter settings.
+          </p>
+
+                  
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 loop
+                 width="100%">
+            <source src="https://raw.githubusercontent.com/StructuredField/StructuredField.github.io/refs/heads/main/assets/videos/phy2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+
+        </div>
+
+        <h3 class="title is-4">Deformation</h3>
+
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 loop
+                 width="100%">
+            <source src="https://raw.githubusercontent.com/StructuredField/StructuredField.github.io/refs/heads/main/assets/videos/deformation2.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</section>
+
+
+<section class="section" id="BibTeX">
+  <div class="container is-max-desktop content">
+    <h2 class="title">BibTeX</h2>
+    
+    <div class="content has-text-justified">
+      <p>
+        If you find StructuredField useful for your work please cite:
+      </p>
+    </div>
+
+    <pre><code></code></pre>
+  </div>
+</section>
+
+
+
+<!-- <section class="section" id="Acknowledgements">
+  <div class="container is-max-desktop content">
+    <h2 class="title">Acknowledgements</h2>
+
+  </div>
+</section> -->
+
+
+
+<footer class="footer">
+  <div class="container">
+    <div class="content has-text-centered">
+    </div>
+    <div class="columns is-centered">
+      <div class="column is-8">
+        <div class="content">
+          <p>
+            This website is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-sa/4.0/">Creative Commons Attribution-ShareAlike 4.0 International License</a>.
+            This webpage template is from <a href="https://github.com/nerfies/nerfies.github.io">Nerfies</a>. 
+            We sincerely thank <a href="https://keunhong.com/">Keunhong Park</a> for developing and open-sourcing this template.
+          </p>
+        </div>
+      </div>
+          <p></p>
+        </div>
+      </div>
+</footer>
+
+</body>
+</html>
