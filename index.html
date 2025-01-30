@@ -352,7 +352,7 @@
     <!-- Method. -->
     <div class="columns is-centered has-text-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3" style="margin-top: -20px">Motivation</h2>
+        <h2 class="title is-3" style="margin-top: -20px"><span style="color: #e67e22; font-weight: bold;"> 🎯Novel Problem Definition</span></h2>
 
         <div class="content has-text-centered">
           <video id="replay-video"
@@ -363,14 +363,14 @@
                  playsinline
                  loop
                  width="100%">
-            <source src="https://raw.githubusercontent.com/StructuredField/StructuredField.github.io/refs/heads/main/assets/videos/motivation.mp4"
+            <source src="https://raw.githubusercontent.com/ShapefromSemantics/ShapefromSemantics.github.io/main/assets/videos/1.mp4"
                     type="video/mp4">
           </video>
         </div>
-        <div class="content has-text-justified">
+        <!--<div class="content has-text-justified">
           Point-based representations (e.g., 3D Gaussian Splatting, 2D Gaussian Splatting) are fundamentally <b>unstructured</b>, hindering physics-sensitive tasks such as simulation and deformation. Our  <b>structured</b>  representation enables direct compatibility with modern graphics pipelines.          <p style="margin-top: 30px">
         </p>
-        </div>
+        </div>-->
 
       </div>
     </div>
@@ -403,13 +403,7 @@
   
         <h3 class="title is-4">Shape Design based on Multi-Semantics SDS </h3>
         <div class="content has-text-justified">
-          <p>We reparametrize the parameters of 3D Gaussians with the parameters of  tetrahedra to</p>
-          <ul>
-            <li>Enable differentiable rendering of a tetrahedral mesh</li>
-            <li>Make Gaussians better follow the deformation of the tetrahedral mesh</li>
-          </ul>
-
-
+          <p>In the first stage, we obtain the target structure based on multi-semantics SDS and use 3D Gaussian Splatting as the 3D representation.</p>
           <div class="content has-text-centered">
             <video id="replay-video"
                    autoplay
@@ -434,12 +428,7 @@
         </head>
         
         <div class="content has-text-justified">
-          <p>We analyze the causes of low-quality geometric structures in mesh optimization, and we use an orientation-preserving homeomorphism implemented by a novel invertible neural network <span class="math-symbol cursive">H</span> to improve the quality of geometric structures during optimization.</p>
-          <ul>
-            <li><b>Self-intersection:</b> Using the homeomorphism to ensure no intersections.</li>
-            <li><b>Element inversion:</b> Using orientation-preserving properties to reduce inverted elements.</li>
-          </ul>
-          <p>During optimization, we fix the initial tetrahedral mesh vertices <span class="math-symbol cursive">V</span> and topology <span class="math-symbol cursive">T</span>, and use the vertices mapped by <span class="math-symbol cursive">H</span> as the actual vertices of the tetrahedra.</p>
+          <p>In the second stage, we use various generative models to provide supervision for the subsequent neural SDF representation based on neural radiance supervision.</p>
         </div>
         
         <div class="content has-text-centered">
@@ -463,12 +452,7 @@
         </head>
         
         <div class="content has-text-justified">
-          <p>We analyze the causes of low-quality geometric structures in mesh optimization, and we use an orientation-preserving homeomorphism implemented by a novel invertible neural network <span class="math-symbol cursive">H</span> to improve the quality of geometric structures during optimization.</p>
-          <ul>
-            <li><b>Self-intersection:</b> Using the homeomorphism to ensure no intersections.</li>
-            <li><b>Element inversion:</b> Using orientation-preserving properties to reduce inverted elements.</li>
-          </ul>
-          <p>During optimization, we fix the initial tetrahedral mesh vertices <span class="math-symbol cursive">V</span> and topology <span class="math-symbol cursive">T</span>, and use the vertices mapped by <span class="math-symbol cursive">H</span> as the actual vertices of the tetrahedra.</p>
+          <p>In the final stage, we use neural SDF as the representation and train based on neural radiance using the masks and RGB supervision obtained from the first and second stages. This results in a geometry with exceptionally high geometric quality and exquisite textures.</p>
         </div>
         
         <div class="content has-text-centered">
