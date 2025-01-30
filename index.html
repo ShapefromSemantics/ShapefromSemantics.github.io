@@ -251,6 +251,19 @@
       </div>
     </div>
   </div>
+          <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 loop
+                 width="45%">
+            <source src="https://raw.githubusercontent.com/ShapefromSemantics/ShapefromSemantics.github.io/main/assets/videos/0.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
 </section>
 
 <style>
@@ -317,8 +330,18 @@
       </div>
     </div>
     -->
-    <!--/ Paper video. -->
+    <!--/ Paper video. 
   </div>
+  <div class="content has-text-justified">
+          <p>We analyze the causes of low-quality geometric structures in mesh optimization, and we use an orientation-preserving homeomorphism implemented by a novel invertible neural network <span class="math-symbol cursive">H</span> to improve the quality of geometric structures during optimization.</p>
+          <ul>
+            <li><b>Self-intersection:</b> Using the homeomorphism to ensure no intersections.</li>
+            <li><b>Element inversion:</b> Using orientation-preserving properties to reduce inverted elements.</li>
+          </ul>
+          <p>During optimization, we fix the initial tetrahedral mesh vertices <span class="math-symbol cursive">V</span> and topology <span class="math-symbol cursive">T</span>, and use the vertices mapped by <span class="math-symbol cursive">H</span> as the actual vertices of the tetrahedra.</p>
+        </div>-->
+        
+
 </section>
 
 
@@ -473,15 +496,42 @@
 <section class="section">
   <div class="container is-max-desktop">
 
-    <!-- Comparisons. -->
-    <div class="columns is-centered ">
+    <!-- Results. -->
+    <div class="columns is-centered">
       <div class="column is-full-width">
-        <h2 class="title is-3 has-text-centered" style="margin-top: -30px">High-quality Rendering</h2>
+        <h2 class="title is-3 has-text-centered" style="margin-top: -30px">Results</h2>
 
+        <!-- Pipeline Section -->
+  
+        <h3 class="title is-4">Comparison Results</h3>
         <div class="content has-text-justified">
-          <p>
-            We compare StructuredField with recent SOTA novel view synthesis methods.
-          </p>
+          <p>We compare the outcomes of Shape from Semantics with those of Fabricable Wire Art.</p>
+
+          <div class="content has-text-centered">
+            <video id="replay-video"
+                   autoplay
+                   controls
+                   muted
+                   preload
+                   playsinline
+                   loop
+                   width="100%">
+              <source src="https://raw.githubusercontent.com/ShapefromSemantics/ShapefromSemantics.github.io/main/assets/videos/5.mp4"
+                      type="video/mp4">
+            </video>
+          </div>
+        </div>
+        
+
+          
+        <h3 class="title is-4">More Results</h3>
+        <head>
+          <!-- 引入Google Fonts中的Dancing Script -->
+          <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+        </head>
+        
+        <div class="content has-text-justified">
+          <p>We demonstrate more generated cases.</p>
         </div>
         
         <div class="content has-text-centered">
@@ -493,28 +543,20 @@
                  playsinline
                  loop
                  width="100%">
-            <source src="https://raw.githubusercontent.com/StructuredField/StructuredField.github.io/refs/heads/main/assets/videos/comparison.mp4"
+            <source src="https://raw.githubusercontent.com/ShapefromSemantics/ShapefromSemantics.github.io/main/assets/videos/6.mp4"
                     type="video/mp4">
           </video>
         </div>
-       
 
-
-  </div>
-</section>
-
-
-
-<section class="section">
-  <div class="container is-max-desktop">
-
-    <!-- Ablation Studies. -->
-    <div class="columns is-centered ">
-      <div class="column is-full-width">
-        <h2 class="title is-3 has-text-centered" style="margin-top: -30px">Applications</h2>
-
-        <h3 class="title is-4">Physical Simulation</h3>
-       
+<h3 class="title is-4">Fabrication Results</h3>
+        <head>
+          <!-- 引入Google Fonts中的Dancing Script -->
+          <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+        </head>
+        
+        <div class="content has-text-justified">
+          <p>We demonstrate various fabrication results of 3D printing.</p>
+        </div>
         
         <div class="content has-text-centered">
           <video id="replay-video"
@@ -525,52 +567,18 @@
                  playsinline
                  loop
                  width="100%">
-            <source src="https://raw.githubusercontent.com/StructuredField/StructuredField.github.io/refs/heads/main/assets/videos/physcial.mp4"
+            <source src="https://raw.githubusercontent.com/ShapefromSemantics/ShapefromSemantics.github.io/main/assets/videos/7.mp4"
                     type="video/mp4">
           </video>
         </div>
-        <div class="content has-text-justified">
-          <p>
-            We are able to simulate the object's behavior under different parameter settings.
-          </p>
-
-                  
-        <div class="content has-text-centered">
-          <video id="replay-video"
-                 autoplay
-                 controls
-                 muted
-                 preload
-                 playsinline
-                 loop
-                 width="100%">
-            <source src="https://raw.githubusercontent.com/StructuredField/StructuredField.github.io/refs/heads/main/assets/videos/phy2.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-
-        </div>
-
-        <h3 class="title is-4">Deformation</h3>
-
-        <div class="content has-text-centered">
-          <video id="replay-video"
-                 autoplay
-                 controls
-                 muted
-                 preload
-                 playsinline
-                 loop
-                 width="100%">
-            <source src="https://raw.githubusercontent.com/StructuredField/StructuredField.github.io/refs/heads/main/assets/videos/deformation2.mp4"
-                    type="video/mp4">
-          </video>
-        </div>
-      </div>
-    </div>
-
-  </div>
+        <style>
+          .math-symbol.cursive {
+            font-family: 'Dancing Script', cursive;
+          }
+        </style>
+        
 </section>
+
 
 
 <section class="section" id="BibTeX">
