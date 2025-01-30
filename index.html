@@ -184,7 +184,7 @@
                 </a>
               </span>
               -->
-              <!-- Code Link. -->
+              <!-- Code Link. 
               <span class="link-block">
                 <a href="javascript:void(0);" class="external-link button is-normal is-rounded is-dark" 
                    onclick="window.location.href=window.location.href;">
@@ -193,7 +193,7 @@
                   </span>
                   <span>Code</span>
                   </a>
-              </span>
+              </span>-->
               <!-- OpenReview Link. -->
               <!-- <span class="link-block">
                 <a href="https://openreview.net/forum?id=8RKJj1YDBJT"
@@ -230,7 +230,7 @@
     <div class="hero-body">
       <!-- 文字说明移动到图片上方 -->
 <h2 class="subtitle has-text-centered" style="margin-bottom: 24px; font-weight: bold; color: black;">
-  We propose and address <span style="color: #e67e22; font-weight: bold;">Shape from Semantics,</span> <span style="color: #27ae60; font-weight: bold;">a novel generative problem.</span> 
+  We propose and address <span style="color: #e67e22; font-weight: bold;">Shape from Semantics,</span> <span style="color: #27ae60; font-weight: bold;">a novel generative problem.</span> </h2>
   
    <!--<br>
   <span style="color: #e67e22; font-weight: bold;"> (🎯High-quality rendering)</span> 
@@ -241,7 +241,7 @@
 
 
       <!-- 图片元素 -->
-      <img src="https://raw.githubusercontent.com/ShapefromSemantics/ShapefromSemantics.github.io/main/assets/imgs/teaser4.png" 
+      <img src="https://raw.githubusercontent.com/ShapefromSemantics/ShapefromSemantics.github.io/main/assets/imgs/teaser.png" 
            class="center"
            style="max-width: 100%; margin: 0 auto; display: block;">
 
@@ -368,17 +368,17 @@
         <!-- Pipeline Section -->
           <!-- 新增居中容器 --> <!-- 添加火箭emoji -->
           <div class="content has-text-centered">
-            <img src="https://raw.githubusercontent.com/StructuredField/StructuredField.github.io/main/assets/imgs/pipeline.png" 
+            <img src="https://raw.githubusercontent.com/ShapefromSemantics/ShapefromSemantics.github.io/main/assets/imgs/Pipeline.png" 
                  class="center"
                  style="max-width: 100%; margin: 0 auto;">  <!-- 添加图片尺寸控制 -->
             <div class="content has-text-justified"> <!-- 添加描述段落 -->
-              Given multi-view images as input, we reconstruct the 3D scene using a structured tetrahedral mesh representation. We use an orientation-preserving homeomorphism to maintain the inversion-free and self-intersection-free structured geometry of the tetrahedral mesh. Additionally, parameters of tetrahedra are reparameterized into the corresponding 3D Gaussians parameters, enabling differentiable rendering.  Based on our structured mesh representation, we can further apply the model to physical simulations, deformation, and other applications.
+              For given semantics, we first adopt a 2D generative model to supervise and design a rough geometric shape, and then use diffusion models for image restoration and video generation to generate more high-quality images. Finally, we use SDF representation to reconstruct the detailed shape under the supervision of generated images and Gaussian masks. Our shape is fabricable and can be produced by 3D printing.
             </p>
           </div>
         </div>
 
   
-        <h3 class="title is-4">Representation of StructuredField</h3>
+        <h3 class="title is-4">Shape Design based on Multi-Semantics SDS </h3>
         <div class="content has-text-justified">
           <p>We reparametrize the parameters of 3D Gaussians with the parameters of  tetrahedra to</p>
           <ul>
@@ -396,7 +396,7 @@
                    playsinline
                    loop
                    width="100%">
-              <source src="https://raw.githubusercontent.com/StructuredField/StructuredField.github.io/refs/heads/main/assets/videos/reparametrize.mp4"
+              <source src="https://raw.githubusercontent.com/ShapefromSemantics/ShapefromSemantics.github.io/main/assets/videos/2.mp4"
                       type="video/mp4">
             </video>
           </div>
@@ -404,7 +404,7 @@
         
 
           
-        <h3 class="title is-4">High-quality Structured Geometry</h3>
+        <h3 class="title is-4">Generation of Detailed and Multi-View Supervision</h3>
         <head>
           <!-- 引入Google Fonts中的Dancing Script -->
           <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
@@ -428,11 +428,39 @@
                  playsinline
                  loop
                  width="100%">
-            <source src="https://raw.githubusercontent.com/StructuredField/StructuredField.github.io/refs/heads/main/assets/videos/inn.mp4"
+            <source src="https://raw.githubusercontent.com/ShapefromSemantics/ShapefromSemantics.github.io/main/assets/videos/3.mp4"
                     type="video/mp4">
           </video>
         </div>
 
+<h3 class="title is-4">Reconstruction of Refined Shapes with Neural SDF</h3>
+        <head>
+          <!-- 引入Google Fonts中的Dancing Script -->
+          <link href="https://fonts.googleapis.com/css2?family=Dancing+Script:wght@700&display=swap" rel="stylesheet">
+        </head>
+        
+        <div class="content has-text-justified">
+          <p>We analyze the causes of low-quality geometric structures in mesh optimization, and we use an orientation-preserving homeomorphism implemented by a novel invertible neural network <span class="math-symbol cursive">H</span> to improve the quality of geometric structures during optimization.</p>
+          <ul>
+            <li><b>Self-intersection:</b> Using the homeomorphism to ensure no intersections.</li>
+            <li><b>Element inversion:</b> Using orientation-preserving properties to reduce inverted elements.</li>
+          </ul>
+          <p>During optimization, we fix the initial tetrahedral mesh vertices <span class="math-symbol cursive">V</span> and topology <span class="math-symbol cursive">T</span>, and use the vertices mapped by <span class="math-symbol cursive">H</span> as the actual vertices of the tetrahedra.</p>
+        </div>
+        
+        <div class="content has-text-centered">
+          <video id="replay-video"
+                 autoplay
+                 controls
+                 muted
+                 preload
+                 playsinline
+                 loop
+                 width="100%">
+            <source src="https://raw.githubusercontent.com/ShapefromSemantics/ShapefromSemantics.github.io/main/assets/videos/4.mp4"
+                    type="video/mp4">
+          </video>
+        </div>
         <style>
           .math-symbol.cursive {
             font-family: 'Dancing Script', cursive;
